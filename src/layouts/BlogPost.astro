@@ -1,0 +1,132 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import TOC from '../components/TOC.astro'
+
+interface Props {
+	post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const { headings } = await post.render();
+---
+
+<html lang="zh-cn">
+    <head>
+        <BaseHead title={post.data.title} />
+        <style>
+            .blogMain {
+                display: flex;
+                flex-direction: row;
+                align-items: flex-start;
+                max-width: 48em;
+            }
+            .blogMainWithHeading {
+                max-width: 56em;
+            }
+            .articleNoHeading {
+                width: 100%;
+            }
+            .articleWithHeading {
+                width: 80%;
+            }
+            .prose {
+                padding: 1em;
+                color: var(--gray-dark);
+            }
+            .title {
+                padding: 1em 0 0 0;
+                line-height: 1;
+            }
+            .title h1 {
+                margin-bottom: 0.1em;
+            }
+            .date {
+                margin-bottom: 1em;
+                color: var(--gray);
+            }
+            .btButton {
+                position: fixed;
+                bottom: 1.8rem;
+                right: 12vw;
+                background-color: var(--background-gray);
+                padding: 0;
+                width: 3.5em;
+                height: 3.5em;
+                border-color: transparent;
+                border-radius: 99px;
+            }
+            .btButton:hover {
+                cursor: pointer;
+                color: var(--accent);
+            }
+            .hideButton {
+                display: none;
+            }
+            @media (max-width: 720px) {
+                .blogMain {
+                    width: 100%;
+                }
+                .articleWithHeading {
+                    width: 100%;
+                }
+                .btButton {
+                    right: 1.8em;
+                }
+            }
+            @media print {
+                .btButton {
+                    display: none !important;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <Header />
+        <main data-pagefind-body class=`blogMain ${!!headings.length ? "blogMainWithHeading" : ""}`>
+            <article class={!!headings.length ? "articleWithHeading" : "articleNoHeading"}>
+                <div class="prose">
+                    <div class="title">
+                        <h1>{post.data.title}</h1>
+                        <div class="date">
+                            <FormattedDate date={post.data.pubDate} />
+                        </div>
+                        <hr />
+                    </div>
+                    <slot />
+                </div>
+            </article>
+            {!!headings.length && <TOC headings={headings} />}
+        </main>
+        <Footer />
+        <button id="btButton" class="btButton hideButton">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4.5 15.75l7.5-7.5 7.5 7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+        </button>
+    </body>
+</html>
+<script>
+    const btButton = document.getElementById("btButton") as HTMLButtonElement;
+    const targetHeader = document.getElementById("header") as HTMLElement;
+
+    function callback(entries: IntersectionObserverEntry[]) {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                btButton.classList.add("hideButton");
+            } else {
+                btButton.classList.remove("hideButton");
+            }
+        });
+    }
+
+    btButton.addEventListener("click", () => {
+        document.documentElement.scrollTo({ behavior: "smooth", top: 0 });
+    });
+
+    const observer = new IntersectionObserver(callback);
+    observer.observe(targetHeader);
+</script>

@@ -1,0 +1,102 @@
+---
+import type { GetStaticPaths, Page } from "astro";
+import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
+import { PAGE_SIZE } from "../consts";
+import DefaultLayout from "../layouts/DefaultLayout.astro";
+import PostLink from "../components/PostLink.astro";
+
+export const getStaticPaths = (async ({ paginate }) => {
+    const allPosts = await getCollection("blog");
+    const sortedPosts = allPosts.sort(
+        (a, b) => Date.parse(b.data.pubDate) - Date.parse(a.data.pubDate),
+    );
+
+    return paginate(sortedPosts, {
+        pageSize: PAGE_SIZE,
+    });
+}) satisfies GetStaticPaths;
+
+interface Props {
+    page: Page<CollectionEntry<"blog">>;
+}
+
+const { page } = Astro.props;
+const prevUrl = page.url.prev;
+const nextUrl = page.url.next;
+---
+<DefaultLayout>
+    <div class="postlist">
+        <section>
+            {page.data.map((post) => <PostLink post={post} />)}
+        </section>
+        {
+            (prevUrl || nextUrl) && (
+                <nav>
+                    {prevUrl && (
+                        <a
+                            class="pagelink prev"
+                            data-astro-prefetch
+                            href={prevUrl}
+                        >
+                            ← Previous
+                        </a>
+                    )}
+                    {nextUrl && (
+                        <a
+                            class="pagelink next"
+                            data-astro-prefetch
+                            href={nextUrl}
+                        >
+                            Next →
+                        </a>
+                    )}
+                </nav>
+            )
+        }
+    </div>
+</DefaultLayout>
+<style>
+    .postlist {
+        margin: auto;
+        width: 75%;
+        max-width: 46em;
+        height: 100%;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    section {
+        flex-grow: 1;
+    }
+    nav {
+        margin: 2em 0 1em 0;
+        display: flex;
+        flex-direction: row;
+    }
+    .pagelink {
+        color: var(--gray-dark);
+        text-decoration: none;
+		font-family: 'CascadiaCode';
+    }
+    .pagelink:hover {
+        color: var(--accent);
+    }
+    .next {
+        margin-left: auto;
+    }
+    @media (max-width: 720px) {
+        .postlist {
+            width: 100%;
+        }
+        nav {
+            margin-left: 1em;
+            margin-right: 1em;
+        }
+    }
+    @media print {
+        nav {
+            display: none !important;
+        }
+    }
+</style>

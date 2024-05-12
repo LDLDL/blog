@@ -1,0 +1,163 @@
+/*
+  The CSS in this style tag is based off of Bear Blog's default CSS.
+  https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
+  License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
+ */
+
+:root {
+    --hue: 265;
+    --background: oklch(99% 0 var(--hue));
+    --background-gray: oklch(90% 0 var(--hue));
+    --accent: oklch(60% 0.15 var(--hue));
+    --black: oklch(30% 0 var(--hue));
+    --gray: oklch(60% 0.05 var(--hue));
+    --gray-light: oklch(92% 0.035 var(--hue));
+    --gray-dark: oklch(30% 0.05 var(--hue));
+
+    --pagefind-ui-primary: var(--accent);
+    --pagefind-ui-font: 'Noto Sans';
+}
+@font-face {
+    font-family: 'CascadiaCode';
+    src: url('/fonts/CascadiaCode.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+html {
+    scroll-behavior: smooth;
+    display: block;
+    width: 100vw;
+    max-width: 100%;
+}
+body {
+    font-family: 'Noto Sans';
+    margin: auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+    background: var(--background);
+    background-size: 100% 600px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    color: var(--gray-dark);
+    font-size: 20px;
+    line-height: 1.7;
+}
+main {
+    width: 100vw;
+    max-width: 56em;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0 0 0.5em 0;
+    color: var(--black);
+    line-height: 1.2;
+}
+h1 {
+    font-size: 2.441em;
+}
+h2 {
+    font-size: 1.853em;
+}
+h3 {
+    font-size: 1.463em;
+}
+h4 {
+    font-size: 1.15em;
+}
+h5 {
+    font-size: 0.88em;
+}
+strong,
+b {
+    font-weight: 700;
+}
+a {
+    color: var(--accent);
+}
+a:hover {
+    color: var(--accent);
+}
+p {
+    margin-bottom: 1em;
+}
+.prose p {
+    margin-bottom: 2em;
+}
+textarea {
+    width: 100%;
+    font-size: 16px;
+}
+input {
+    font-size: 16px;
+}
+table {
+    width: 100%;
+}
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+code {
+    padding: 2px 5px;
+    background-color: var(--gray-light);
+    border-radius: 2px;
+    font-family: 'CascadiaCode';
+}
+pre {
+    padding: 1.5em;
+    border-radius: 8px;
+    font-family: 'CascadiaCode';
+    font-size: 16px;
+    line-height: 1.25;
+}
+pre > code {
+    all: unset;
+}
+blockquote {
+    border-left: 4px solid var(--accent);
+    padding: 0 0 0 20px;
+    margin: 0px;
+    font-size: 1.15em;
+}
+hr {
+    border: none;
+    border-top: 1px solid var(--gray-light);
+}
+@media (max-width: 720px) {
+    body {
+        font-size: 18px;
+    }
+    main {
+        width: 95vw;
+        padding: 0;
+    }
+}
+.sr-only {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    position: absolute !important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    /* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */
+    clip: rect(1px 1px 1px 1px);
+    /* maybe deprecated but we need to support legacy browsers */
+    clip: rect(1px, 1px, 1px, 1px);
+    /* modern browsers, clip-path works inwards from each corner */
+    clip-path: inset(50%);
+    /* added line to stop words getting smushed together (as they go onto seperate lines and some screen readers do not understand line feeds as a space */
+    white-space: nowrap;
+}

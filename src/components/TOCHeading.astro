@@ -1,0 +1,54 @@
+---
+import type { TocItem } from "../utils/generateToC";
+
+interface Props {
+    heading: TocItem;
+}
+
+const {
+    heading: { depth, slug, children, text },
+} = Astro.props;
+---
+
+<li class={depth > 2 ? "ms" : ""}>
+    <a aria-label={`Scroll to section: ${text}`}
+        class={depth <= 2 ? "a2" : "a3"}
+        href={`#${slug}`}>
+        {text}
+    </a>
+    {
+        !!children.length && (
+            <ul>
+                {children.map((subheading) => (
+                    <Astro.self heading={subheading} />
+                ))}
+            </ul>
+        )
+    }
+</li>
+<style>
+    li {
+        list-style: none;
+    }
+    ul {
+        padding: 0;
+    }
+    a {
+        text-decoration: none;
+        color: var(--black);
+        display: block;
+    }
+    a:hover {
+        color: var(--accent);
+    }
+    .ms {
+        margin-inline-start: 1em;
+    }
+    .a2 {
+        margin-top: 0.7em;
+    }
+    .a3 {
+        margin-top: 0.45em;
+        font-size: 0.95em;
+    }
+</style>

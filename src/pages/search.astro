@@ -1,0 +1,24 @@
+---
+import SearchComponent from "astro-pagefind/components/Search";
+import DefaultLayout from "../layouts/DefaultLayout.astro";
+---
+
+<DefaultLayout>
+    <div class="pagefind-container">
+        <SearchComponent id="search" className="pagefind-ui" uiOptions={{ showImages: false }}>
+        </SearchComponent>
+    </div>
+</DefaultLayout>
+<style>
+    .pagefind-container {
+        padding-top: 1em;
+        width: 85%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    @media (max-width: 720px) {
+        .pagefind-container {
+            width: 100%;
+        }
+    }
+</style>
