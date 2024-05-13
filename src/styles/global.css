@@ -12,10 +12,19 @@
     --black: oklch(30% 0 var(--hue));
     --gray: oklch(60% 0.05 var(--hue));
     --gray-light: oklch(92% 0.035 var(--hue));
-    --gray-dark: oklch(30% 0.05 var(--hue));
 
     --pagefind-ui-primary: var(--accent);
+    --pagefind-ui-background: var(--background);
+    --pagefind-ui-text: var(--black);
     --pagefind-ui-font: 'Noto Sans';
+}
+:root.dark {
+    --background: oklch(25% 0 var(--hue));
+    --background-gray: oklch(50% 0 var(--hue));
+    --accent: oklch(80% 0.102 var(--hue));
+    --black: oklch(95% 0 var(--hue));
+    --gray: oklch(90% 0.02 var(--hue));
+    --gray-light: oklch(45% 0.035 var(--hue));
 }
 @font-face {
     font-family: 'CascadiaCode';
@@ -42,7 +51,7 @@ body {
     background-size: 100% 600px;
     word-wrap: break-word;
     overflow-wrap: break-word;
-    color: var(--gray-dark);
+    color: var(--black);
     font-size: 20px;
     line-height: 1.7;
 }
@@ -142,6 +151,16 @@ hr {
     main {
         width: 95vw;
         padding: 0;
+    }
+}
+@media print {
+    :root.dark {
+        --background: oklch(99% 0 var(--hue));
+        --background-gray: oklch(90% 0 var(--hue));
+        --accent: oklch(60% 0.15 var(--hue));
+        --black: oklch(30% 0 var(--hue));
+        --gray: oklch(60% 0.05 var(--hue));
+        --gray-light: oklch(92% 0.035 var(--hue));
     }
 }
 .sr-only {
