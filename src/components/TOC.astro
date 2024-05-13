@@ -26,14 +26,20 @@ const toc = generateToC(headings);
         overflow-y: auto;
         font-size: 0.8em;
         line-height: 1;
-        margin-top: 3rem;
+        margin-top: 1rem;
         margin-left: 1rem;;
         flex-basis: 16rem;
         top: 3rem;
         position: sticky;
     }
+    .title {
+        position: sticky;
+        top: 0;
+        background-color: var(--background);
+    }
     .table {
         padding: 0 0 0 0.5em;
+        margin-block-start: 0;
         list-style: none;
     }
     @media (max-width: 720px) {
