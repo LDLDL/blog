@@ -30,30 +30,20 @@ const nextUrl = page.url.next;
         <section>
             {page.data.map((post) => <PostLink post={post} />)}
         </section>
-        {
-            (prevUrl || nextUrl) && (
-                <nav>
-                    {prevUrl && (
-                        <a
-                            class="pagelink prev"
-                            data-astro-prefetch
-                            href={prevUrl}
-                        >
-                            ← Previous
-                        </a>
-                    )}
-                    {nextUrl && (
-                        <a
-                            class="pagelink next"
-                            data-astro-prefetch
-                            href={nextUrl}
-                        >
-                            Next →
-                        </a>
-                    )}
-                </nav>
-            )
-        }
+        {(prevUrl || nextUrl) && (
+            <nav>
+                {prevUrl && (
+                    <a class="pagelink prev" data-astro-prefetch href={prevUrl}>
+                        ← Previous
+                    </a>
+                )}
+                {nextUrl && (
+                    <a class="pagelink next" data-astro-prefetch href={nextUrl}>
+                        Next →
+                    </a>
+                )}
+            </nav>
+        )}
     </div>
 </DefaultLayout>
 <style>
