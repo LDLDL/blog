@@ -13,7 +13,7 @@
     "@astrojs/check": "^0.5.10",
     "@astrojs/mdx": "^4.3.0",
     "@astrojs/sitemap": "^3.1.2",
-    "astro": "^5.11.2",
+    "astro": "^5.13.2",
     "astro-pagefind": "^1.5.0",
     "tslib": "^2.8.1",
     "typescript": "^5.4.3"
