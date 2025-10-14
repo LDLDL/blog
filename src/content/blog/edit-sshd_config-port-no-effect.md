@@ -30,7 +30,7 @@ Oct 14 03:39:33 sshd[1095]: Server listening on :: port 22.
 Oct 14 03:39:33 systemd[1]: Started ssh.service - OpenBSD Secure Shell server.
 ```
 
-对比一下我令一台Debian 13的ssh服务状态
+对比一下我另一台Debian 13的ssh服务状态
 ```bash
 systemctl status ssh
 
