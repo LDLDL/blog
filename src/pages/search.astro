@@ -1,20 +1,36 @@
 ---
-import SearchComponent from "astro-pagefind/components/Search";
 import DefaultLayout from "../layouts/DefaultLayout.astro";
 ---
 
 <DefaultLayout>
     <div class="pagefind-container">
-        <SearchComponent id="search" className="pagefind-ui" uiOptions={{ showImages: false }}>
-        </SearchComponent>
+        <div id="search"></div>
     </div>
 </DefaultLayout>
+<script>
+    import { PagefindUI } from "@pagefind/default-ui";
+    import "@pagefind/default-ui/css/ui.css";
+
+    new PagefindUI({
+        element: "#search",
+        showImages: false,
+        bundlePath: import.meta.env.BASE_URL + "pagefind/",
+    });
+</script>
 <style>
     .pagefind-container {
         padding-top: 1em;
         width: 85%;
         margin-left: auto;
         margin-right: auto;
+
+        --pagefind-ui-primary: var(--accent);
+        --pagefind-ui-background: var(--background);
+        --pagefind-ui-text: var(--black);
+        --pagefind-ui-font: 'Noto Sans';
+    }
+    .pagefind-container :global(.pagefind-ui__search-input:focus-visible) {
+        outline: 2px solid var(--black);
     }
     @media (max-width: 720px) {
         .pagefind-container {

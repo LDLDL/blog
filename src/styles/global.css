@@ -12,11 +12,6 @@
     --black: oklch(30% 0 var(--hue));
     --gray: oklch(60% 0.05 var(--hue));
     --gray-light: oklch(92% 0.035 var(--hue));
-
-    --pagefind-ui-primary: var(--accent);
-    --pagefind-ui-background: var(--background);
-    --pagefind-ui-text: var(--black);
-    --pagefind-ui-font: 'Noto Sans';
 }
 :root.dark {
     --background: oklch(25% 0 var(--hue));
